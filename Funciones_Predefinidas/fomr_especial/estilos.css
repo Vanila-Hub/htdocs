@@ -1,0 +1,20 @@
+body{
+    background-color: limegreen;
+}
+
+input{
+    padding: 3px;
+    border-radius: 8rem;
+    border: none red 2px;
+}
+ol{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 3rem;
+}
+li{
+    padding: 1rem;
+    border-radius: 9rem;
+    background-color: yellow;
+}
