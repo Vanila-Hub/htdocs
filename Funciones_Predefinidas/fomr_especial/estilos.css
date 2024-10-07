@@ -1,20 +1,92 @@
-body{
-    background-color: limegreen;
+/* estilos.css */
+
+/* Reseteo básico para eliminar márgenes y paddings predeterminados */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-input{
-    padding: 3px;
-    border-radius: 8rem;
-    border: none red 2px;
-}
-ol{
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-li{
-    padding: 1rem;
-    border-radius: 9rem;
-    background-color: yellow;
+
+.form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #ff0000;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+ol {
+    margin-top: 20px;
+    padding-left: 20px;
+    list-style-type: decimal;
+}
+
+li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+div {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .form {
+        padding: 15px;
+    }
+
+    input[type="text"], input[type="submit"] {
+        font-size: 0.9em;
+    }
 }
