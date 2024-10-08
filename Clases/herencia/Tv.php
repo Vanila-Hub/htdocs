@@ -1,5 +1,4 @@
 <?php
-// Incluir la clase Producto
 include 'Producto.php';
 
 // Clase Tv que hereda de Producto
