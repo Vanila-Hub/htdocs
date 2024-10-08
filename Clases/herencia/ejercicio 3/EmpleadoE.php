@@ -42,6 +42,7 @@ class Empleado extends PersonaE {
         $html = parent::toHtml($p);
         if ($p instanceof Empleado) {
             $html .= "<p>Sueldo: " . htmlspecialchars($p->getSueldo()) . "</p>";
+            $html .= "<p>Edad: " . htmlspecialchars($p->getEdad()) . "</p>"; // Mostrar la edad
             $html .= "<p>Teléfonos:</p>";
             $html .= "<ol>";
             foreach ($p->getTelefonos() as $telefono) {
