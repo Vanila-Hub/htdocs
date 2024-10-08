@@ -7,7 +7,7 @@ class Empleado
         protected $telefonos = []
         ) {}
         
-        const SUELDO_TOPE = 200;
+        private static $SUELDO_TOPE = 200;
         public function getNombreCompleto()
         {
             return $this->nombreApellido;
@@ -16,6 +16,12 @@ class Empleado
         public function debePagarImpuestos(): bool
         {
             return $this->salario > self::SUELDO_TOPE;
+        }
+        public function getSueldoTope(){
+            return self::$SUELDO_TOPE;
+        }
+        public function setSueldoTope($nuevoSueldoTope){
+            self::$SUELDO_TOPE=$nuevoSueldoTope;
         }
         
     public function anyadirTelefono($telefono)
