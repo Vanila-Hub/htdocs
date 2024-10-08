@@ -1,6 +1,5 @@
 <?php
-// Clase Producto
-class Producto
+abstract class Producto
 {
     public $codigo;
     public $nombre;
@@ -15,9 +14,6 @@ class Producto
         $this->PVP = $PVP;
     }
 
-    public function mostrarResumen()
-    {
-        echo "Código del producto: " . $this->codigo . "<br>";
-    }
+    abstract public function mostrarResumen();
 }
 ?>
