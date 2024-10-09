@@ -1,20 +1,21 @@
 <?php
 
 require_once 'Trabajador.php';
+require_once 'JSerializable.php';
 
-class Gerente extends Trabajador {
+class Gerente extends Trabajador implements JSerializable {
     private $sueldoBase;
 
-    public function __construct($nombre, $apellidos, $sueldoBase) {
-        parent::__construct($nombre, $apellidos);
+    public function __construct($nombre, $apellidos, $sueldoBase, $edad = 0) {
+        parent::__construct($nombre, $apellidos, $edad);
         $this->sueldoBase = $sueldoBase;
     }
 
     public function calcularSueldo(): float {
-        return $this->sueldoBase; // Implementación simple, puedes añadir más lógica
+        return $this->sueldoBase;
     }
 
-    public function toHtml(): string { // Cambiado para cumplir con la firma
+    public function toHtml(): string {
         $html = "<p>Nombre Completo: " . htmlspecialchars($this->getNombreCompleto()) . "</p>";
         $html .= "<p>Sueldo: " . htmlspecialchars($this->calcularSueldo()) . "</p>";
         $html .= "<p>Teléfonos:</p>";
@@ -26,5 +27,17 @@ class Gerente extends Trabajador {
 
         $html .= "</ol>";
         return $html;
+    }
+
+    public function toJSON(): string {
+        $mapa = new stdClass();
+        foreach ($this as $clave => $valor) {
+            $mapa->$clave = $valor;
+        }
+        return json_encode($mapa);
+    }
+
+    public function toSerialize(): string {
+        return serialize($this);
     }
 }
