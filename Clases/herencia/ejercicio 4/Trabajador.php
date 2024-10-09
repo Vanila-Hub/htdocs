@@ -14,7 +14,7 @@ abstract class Trabajador {
         return $this->nombre . ' ' . $this->apellidos;
     }
 
-    public function addTelefono($telefono) {
+    public function anyadirTelefono($telefono) {
         $this->telefonos[] = $telefono;
     }
 
