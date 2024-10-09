@@ -18,7 +18,6 @@ class Tv extends Producto
     public function mostrarResumen()
     {
         // Llamar al método mostrarResumen() de la clase Producto
-        parent::mostrarResumen();
         
         // Mostrar las propiedades específicas de la TV
         echo "Pulgadas: " . $this->pulgadas . "<br>";

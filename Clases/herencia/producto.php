@@ -14,6 +14,7 @@ abstract class Producto
         $this->PVP = $PVP;
     }
 
+    // Método abstracto
     abstract public function mostrarResumen();
 }
 ?>
