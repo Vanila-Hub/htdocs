@@ -12,7 +12,7 @@ echo "Teléfonos del Empleado: " . $empleado->listarTelefonos() . "<br><br>";
 $gerente = new Gerente("María", "Gómez", 35, 3000);
 echo "Nombre Completo: " . $gerente->getNombreCompleto() . "<br>";
 echo "Sueldo del Gerente: " . $gerente->calcularSueldo() . "<br>";
-$gerente->addTelefono("123123123");
-$gerente->addTelefono("321321321");
+$gerente->anyadirTelefono("123123123");
+$gerente->anyadirTelefono("321321321");
 echo "Teléfonos del Gerente: " . $gerente->listarTelefonos() . "<br>";
 ?>
