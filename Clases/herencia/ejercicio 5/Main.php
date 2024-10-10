@@ -1,8 +1,9 @@
 <?php
 
-require_once 'EmpleadoE.php';
-require_once 'Gerente.php';
-require_once 'Empresa.php';
+include 'Trabajador.php';
+include 'EmpleadoE.php';
+include 'Gerente.php';
+include 'EmpresaE.php';
 
 // Crear empleados y gerente
 $empleado1 = new Empleado('Juan', 'Pérez', 160, 15);
