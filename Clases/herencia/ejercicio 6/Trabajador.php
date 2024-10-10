@@ -21,6 +21,16 @@ abstract class Trabajador {
         return $this->telefonos;
     }
 
+    public function toJSON(): string {
+        $mapa = [
+            'tipo' => 'Empleado',
+            'nombre' => $this->nombre,
+            'apellidos' => $this->apellidos,
+            'telefonos' => $this->telefonos
+        ];
+        return json_encode($mapa);
+    }
+
     abstract public function calcularSueldo(): float; 
     abstract public function toHtml(): string; 
 }

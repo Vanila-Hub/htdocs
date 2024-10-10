@@ -50,9 +50,11 @@ class Empresa implements JSerializable {
     }
 
     public function toJSON(): string {
-        $mapa = new stdClass();
-        foreach ($this as $clave => $valor) {
-            $mapa->$clave = $valor;
+        $mapa = [
+            'trabajadores' => []
+        ];
+        foreach ($this->trabajadores as $trabajador) {
+            $mapa['trabajadores'][] = json_decode($trabajador->toJSON());
         }
         return json_encode($mapa);
     }
