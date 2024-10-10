@@ -1,14 +1,13 @@
 <?php
 
-require_once 'Trabajador.php';
-require_once 'JSerializable.php';
+include('Trabajador.php');
 
-class Empleado extends Trabajador implements JSerializable {
+class Empleado extends Trabajador {
     private $horasTrabajadas;
     private $precioPorHora;
 
-    public function __construct($nombre, $apellidos, $horasTrabajadas, $precioPorHora, $edad = 0) {
-        parent::__construct($nombre, $apellidos, $edad);
+    public function __construct($nombre, $apellidos, $horasTrabajadas, $precioPorHora) {
+        parent::__construct($nombre, $apellidos);
         $this->horasTrabajadas = $horasTrabajadas;
         $this->precioPorHora = $precioPorHora;
     }
@@ -36,16 +35,5 @@ class Empleado extends Trabajador implements JSerializable {
         $html .= "</ol>";
         return $html;
     }
-
-    public function toJSON(): string {
-        $mapa = new stdClass();
-        foreach ($this as $clave => $valor) {
-            $mapa->$clave = $valor;
-        }
-        return json_encode($mapa);
-    }
-
-    public function toSerialize(): string {
-        return serialize($this);
-    }
 }
+?>
