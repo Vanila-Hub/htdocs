@@ -5,27 +5,25 @@ include 'EmpleadoE.php';
 include 'Gerente.php';
 include 'EmpresaE.php';
 
-// Crear empleados y gerente
-$empleado1 = new Empleado('Juan', 'Pérez', 160, 15);
-$empleado1->anyadirTelefono('123456789');
-$empleado2 = new Empleado('María', 'Gómez', 120, 20);
-$empleado2->anyadirTelefono('987654321');
-$gerente = new Gerente('Ana', 'López', 3000);
+$empresa = new Empresa("Mi Empresa", "Calle Falsa 123");
 
-// Crear empresa y añadir trabajadores
-$empresa = new Empresa('Tech Solutions', 'Calle Ejemplo 123');
+$empleado1 = new Empleado("Juan", "Pérez", 40, 160, 20);
+$empleado1->anyadirTelefono("123456789");
+$empleado1->anyadirTelefono("987654321");
+
+$empleado2 = new Empleado("Ana", "García", 35, 180, 25);
+$empleado2->anyadirTelefono("111222333");
+
+$gerente1 = new Gerente("Carlos", "Lopez", 3000, 10);
+$gerente1->anyadirTelefono("444555666");
+
 $empresa->anyadirTrabajador($empleado1);
 $empresa->anyadirTrabajador($empleado2);
-$empresa->anyadirTrabajador($gerente);
+$empresa->anyadirTrabajador($gerente1);
 
-// Mostrar información
+echo "<h1>Información de la Empresa</h1>";
+echo "<p>Nombre: " . htmlspecialchars($empresa->getNombre()) . "</p>";
+echo "<p>Dirección: " . htmlspecialchars($empresa->getDireccion()) . "</p>";
 echo $empresa->listarTrabajadoresHtml();
-echo "<h3>Coste Total de Nóminas: " . htmlspecialchars($empresa->getCosteNominas()) . "</h3>";
-
-// Convertir a JSON
-echo "<h3>Información en JSON:</h3>";
-echo "<pre>" . htmlspecialchars($empresa->toJSON()) . "</pre>";
-
-// Serializar
-echo "<h3>Información serializada:</h3>";
-echo "<pre>" . htmlspecialchars($empresa->toSerialize()) . "</pre>";
+echo "<p>Coste total en nóminas: " . htmlspecialchars($empresa->getCosteNominas()) . " €</p>";
+?>
