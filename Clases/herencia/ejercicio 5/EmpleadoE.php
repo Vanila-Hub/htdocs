@@ -1,56 +1,51 @@
 <?php
-include 'PersonaE.php';
 
-class Empleado extends PersonaE {
-    private $sueldo;
-    private $telefonos = [];
+require_once 'Trabajador.php';
+require_once 'JSerializable.php';
 
-    public function __construct($nombre, $apellidos, $edad, $sueldo) {
+class Empleado extends Trabajador implements JSerializable {
+    private $horasTrabajadas;
+    private $precioPorHora;
+
+    public function __construct($nombre, $apellidos, $horasTrabajadas, $precioPorHora, $edad = 0) {
         parent::__construct($nombre, $apellidos, $edad);
-        $this->sueldo = $sueldo;
+        $this->horasTrabajadas = $horasTrabajadas;
+        $this->precioPorHora = $precioPorHora;
     }
 
-    public function getSueldo() {
-        return $this->sueldo;
+    public function calcularSueldo(): float {
+        return $this->horasTrabajadas * $this->precioPorHora;
     }
 
-    public function setSueldo($sueldo) {
-        $this->sueldo = $sueldo;
-    }
+    public function toHtml(): string {
+        $html = "<p>Nombre Completo: " . htmlspecialchars($this->getNombreCompleto()) . "</p>";
+        $html .= "<p>Sueldo: " . htmlspecialchars($this->calcularSueldo()) . "</p>";
+        $html .= "<p>Teléfonos:</p>";
+        $html .= "<ol>";
 
-    public function getTelefonos() {
-        return $this->telefonos;
-    }
-
-    public function setTelefonos(array $telefonos) {
-        $this->telefonos = $telefonos;
-    }
-
-    public function debePagarImpuestos(): bool {
-        return $this-> getEdad() > 21 && $this->sueldo > 3333;
-    }
-
-    public function anyadirTelefono($telefono) {
-        $this->telefonos[] = $telefono;
-    }
-
-    public function listarTelefonos(): string {
-        return implode(", ", $this->telefonos);
-    }
-
-    public static function toHtml(PersonaE $p): string {
-        $html = parent::toHtml($p);
-        if ($p instanceof Empleado) {
-            $html .= "<p>Sueldo: " . htmlspecialchars($p->getSueldo()) . "</p>";
-            $html .= "<p>Edad: " . htmlspecialchars($p->getEdad()) . "</p>"; // Mostrar la edad
-            $html .= "<p>Teléfonos:</p>";
-            $html .= "<ol>";
-            foreach ($p->getTelefonos() as $telefono) {
+        $telefonos = $this->listarTelefonos();
+        
+        if (is_array($telefonos) && !empty($telefonos)) {
+            foreach ($telefonos as $telefono) {
                 $html .= "<li>" . htmlspecialchars($telefono) . "</li>";
             }
-            $html .= "</ol>";
+        } else {
+            $html .= "<li>No hay teléfonos disponibles.</li>";
         }
+        
+        $html .= "</ol>";
         return $html;
     }
+
+    public function toJSON(): string {
+        $mapa = new stdClass();
+        foreach ($this as $clave => $valor) {
+            $mapa->$clave = $valor;
+        }
+        return json_encode($mapa);
+    }
+
+    public function toSerialize(): string {
+        return serialize($this);
+    }
 }
-?>

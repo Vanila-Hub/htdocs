@@ -1,8 +1,8 @@
 <?php
 
-require_once 'JSerializable.php';
+require_once 'Trabajador.php';
 
-class Empresa implements JSerializable {
+class Empresa {
     private $nombre;
     private $direccion;
     private $trabajadores = [];
@@ -35,7 +35,7 @@ class Empresa implements JSerializable {
     public function listarTrabajadoresHtml(): string {
         $html = "<h2>Trabajadores de " . htmlspecialchars($this->nombre) . "</h2>";
         foreach ($this->trabajadores as $trabajador) {
-            $html .= $trabajador->toHtml();
+            $html .= $trabajador->toHtml(); // Cambiado para llamar al método toHtml de cada trabajador
         }
         return $html;
     }
@@ -46,17 +46,5 @@ class Empresa implements JSerializable {
             $total += $trabajador->calcularSueldo();
         }
         return $total;
-    }
-
-    public function toJSON(): string {
-        $mapa = new stdClass();
-        $mapa->nombre = $this->nombre;
-        $mapa->direccion = $this->direccion;
-        $mapa->trabajadores = $this->trabajadores; // Puedes agregar más detalles de los trabajadores si lo deseas
-        return json_encode($mapa);
-    }
-
-    public function toSerialize(): string {
-        return serialize($this);
     }
 }

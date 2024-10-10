@@ -1,5 +1,6 @@
 <?php
-class PersonaE {
+
+abstract class Persona {
     protected $nombre;
     protected $apellidos;
     protected $edad;
@@ -22,10 +23,9 @@ class PersonaE {
         $this->edad = $edad;
     }
 
-    public static function toHtml(PersonaE $p): string {
+    public static function toHtml(Persona $p): string {
         $html = "<p>Nombre: " . htmlspecialchars($p->getNombreCompleto()) . "</p>";
         $html .= "<p>Edad: " . htmlspecialchars($p->getEdad()) . "</p>";
         return $html;
     }
 }
-?>

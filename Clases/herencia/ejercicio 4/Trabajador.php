@@ -18,9 +18,10 @@ abstract class Trabajador {
         $this->telefonos[] = $telefono;
     }
 
-    public function listarTelefonos() {
-        return implode(", ", $this->telefonos);
+    public function listarTelefonos(): array {
+        return $this->telefonos;
     }
 
-    abstract public function calcularSueldo();
+    abstract public function calcularSueldo(): float; // Método abstracto
+    abstract public function toHtml(): string; // Método abstracto
 }
