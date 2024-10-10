@@ -1,10 +1,17 @@
 <?php
 
-abstract class Trabajador extends Persona {
+abstract class Trabajador {
+    protected $nombre;
+    protected $apellidos;
     protected $telefonos = [];
 
-    public function __construct($nombre, $apellidos, $edad = 0) {
-        parent::__construct($nombre, $apellidos, $edad);
+    public function __construct($nombre, $apellidos) {
+        $this->nombre = $nombre;
+        $this->apellidos = $apellidos;
+    }
+
+    public function getNombreCompleto() {
+        return $this->nombre . ' ' . $this->apellidos;
     }
 
     public function anyadirTelefono($telefono) {
@@ -16,4 +23,5 @@ abstract class Trabajador extends Persona {
     }
 
     abstract public function calcularSueldo(): float; // Método abstracto
+    abstract public function toHtml(): string; // Método abstracto
 }
