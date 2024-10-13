@@ -43,15 +43,28 @@ class Videoclub
         array_push($this->productos,$producto);
     }
     public function alquilarSocioProducto($numeroCliente_, $numeroSoporte) {
-
+        foreach ($this->productos as $claveP => $product) {
+            if ($product->getNumero()==$numeroSoporte) {
+                foreach ($this->socios as $claveS => $socio) {
+                    if ($socio->getNumero() == $numeroCliente_) {
+                        $socio->alquilar($product);
+                    }
+                }
+            }
+        }
     }
     //to_string
     public function listarProductos() {
-        echo "<ol>";
         foreach ($this->productos as $clave => $producto) {
-            echo "<li>".$producto->title."</li>";
+            $producto->muestraResumen();
+        }
+    }
+    public function listarSocios() {
+        echo "<h1>Lista de Socios</h1>";
+        echo "<ol>";
+        foreach ($this->socios as $clave => $socio) {
+            echo "<li>".$socio->nombre."</li>";
         }
         echo "</ol>";
     }
-    public function listarSocios() {}
 }
