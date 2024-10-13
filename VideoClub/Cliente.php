@@ -69,7 +69,7 @@ class Cliente
     }
     public function listarAlquileres()
     {
-        echo "<h1>  El cliente tiene " . $this->numSoportesAlquilados . " soportes alqulados</h1>";
+        echo "<h1>  El cliente ". $this->nombre." tiene " .$this->numSoportesAlquilados . " soportes alqulados</h1>";
         $output = "<ol>";
         foreach ($this->sopostesAlquilados as $soport) {
             $output .= "<li>" . $soport->titulo . "</li>";

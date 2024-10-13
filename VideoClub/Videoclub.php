@@ -63,7 +63,7 @@ class Videoclub
         echo "<h1>Lista de Socios</h1>";
         echo "<ol>";
         foreach ($this->socios as $clave => $socio) {
-            echo "<li>".$socio->nombre."</li>";
+            echo "<li>".$socio->listarAlquileres()."</li>";
         }
         echo "</ol>";
     }

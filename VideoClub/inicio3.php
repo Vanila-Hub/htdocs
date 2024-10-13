@@ -18,7 +18,7 @@ $vc->incluirCintaVideo("El nombre de la Rosa",7, 1.5, 140);
 $vc->listarProductos();
 //voy a crear algunos socios
 $vc->incluirSocio("Amancio Ortega",1);
-$vc->incluirSocio("Pablo Picasso", 1,2);
+$vc->incluirSocio("Pablo Picasso", 1,1);
 $vc->alquilarSocioProducto(1,2);
 $vc->alquilarSocioProducto(1,3);
 //alquilo otra vez el soporte 2 al socio 1.
