@@ -1,5 +1,7 @@
 <?php
+namespace Juego;
 include_once 'Soporte.php';
+use Soporte\Soporte as Soporte;
 class Juego extends Soporte{
     public $consola;
     private $minNumJugadores;

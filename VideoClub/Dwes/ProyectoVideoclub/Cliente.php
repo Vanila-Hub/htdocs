@@ -1,4 +1,6 @@
 <?php
+namespace Cliente;
+use Soporte\Soporte as Soporte;
 class Cliente
 {
     public $nombre;
@@ -20,7 +22,7 @@ class Cliente
     }
     public function getNumero()
     {
-        return $this->numero;
+        return $this;
     }
     public function setnumSoportesAlquilados()
     {
@@ -64,7 +66,7 @@ class Cliente
                 return true;
             }
         }
-        echo "No se puede devilver el soporte porque no esta alquilado";
+        echo "No se puede devolver el soporte porque no esta alquilado";
         return false;
     }
     public function listarAlquileres()

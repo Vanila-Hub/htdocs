@@ -1,5 +1,7 @@
 <?php
+namespace Dvd;
 include_once ('Soporte.php');
+use Soporte\Soporte as Soporte;
 class Dvd extends Soporte{
     public $idiomas;
     private $fromatPantalla;

@@ -1,11 +1,9 @@
 <?php
-include_once "Videoclub.php";
-include_once "Soporte.php";
-include_once "CintaVideo.php";
-include_once "Dvd.php";
-include_once "Juego.php";
-include_once "Cliente.php";
-$vc = new Videoclub("Clase 2DAW3");
+include_once "Dwes/ProyectoVideoclub/Videoclub.php";
+
+use Videoclub\Videoclub as Videoclub;
+
+$vc = new Videoclub\Videoclub("2DAW3");
 //voy a incluir unos cuantos soportes de prueba
 $vc->incluirJuego("God of War",1, 19.99, "PS4", 1, 1);
 $vc->incluirJuego("The Last of Us Part II",2, 49.99, "PS4", 1, 1);

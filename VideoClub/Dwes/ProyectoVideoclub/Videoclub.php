@@ -1,11 +1,17 @@
 <?php
+namespace Videoclub;
+use CintaVideo\CintaVideo as CintaVideo;
+use Dvd\Dvd as Dvd;
+use Juego\Juego as Juego;
+use Cliente\Cliente as Cliente;
+use Soporte\Soporte as Soporte;
 class Videoclub
 {
     private $nombre;
     private $productos = array();
     private $numProductos = array();
     private $socios = array();
-    private $numSocios = array();
+    private $numSocios;
 
     public function __construct($nombre__)
     {
@@ -49,11 +55,10 @@ class Videoclub
         foreach ($this->productos as $claveP => $product) {
             if ($product->getNumero() == $numeroSoporte) {
                 foreach ($this->socios as $claveS => $socio) {
-
-                    if ($socio->getNumero() == $numeroCliente_) {
-
-                        $socio->alquilar($product);
-                    }
+                    // if ( == $numeroCliente_) {
+                    //     $socio->alquilar($product);
+                    // }
+                    $socio->getNumero()->alquilar($product);
                 }
             }
         }

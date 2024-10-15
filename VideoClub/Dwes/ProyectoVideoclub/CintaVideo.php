@@ -1,5 +1,8 @@
 <?php
+namespace CintaVideo;
  include_once('Soporte.php');
+ use Soporte\Soporte as Soporte;
+ 
 class CintaVideo extends Soporte{
     private $duracion;
     public function __construct($titulo_,$numero_,$precio_,$duracion_)
