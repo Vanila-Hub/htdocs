@@ -8,7 +8,7 @@ class Cliente
     private $maxAlquilerConcurrente;
 
     // nombre, numero y maxAlquilerConcurrente
-    public function __construct($nombre_, $numero_, $maxAlquilerConcurrente_ = 2)
+    public function __construct($nombre_, $numero_, $maxAlquilerConcurrente_ = 3)
     {
         $this->nombre = $nombre_;
         $this->numero = $numero_;
@@ -47,7 +47,7 @@ class Cliente
         } elseif ($this->maxAlquilerConcurrente >= $this->numSoportesAlquilados) {
             array_push($this->sopostesAlquilados, $s);
             $this->setnumSoportesAlquilados();
-            echo "<p>Soporte alquilado con exito y actualizada numero de sportes alquilados a " . $this->numSoportesAlquilados . "</p>";
+            echo "<p>Soporte alquilado con exito y actualizada numero de soportes alquilados a " . $this->numSoportesAlquilados . "</p>";
             return true;
         } else {
             echo "<p>Cupo de alquiler lleno ", $this->numSoportesAlquilados, "</p>";

@@ -46,7 +46,9 @@ class Videoclub
         foreach ($this->productos as $claveP => $product) {
             if ($product->getNumero()==$numeroSoporte) {
                 foreach ($this->socios as $claveS => $socio) {
+                    
                     if ($socio->getNumero() == $numeroCliente_) {
+
                         $socio->alquilar($product);
                     }
                 }

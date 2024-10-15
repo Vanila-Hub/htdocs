@@ -17,7 +17,7 @@ abstract class Soporte implements Resumible{
     public function getNumero(){return $this->numero;}
     public function muestraResumen(){
         $output = "
-        <h1>Soporte con titulo:".htmlspecialchars($this->titulo)." </h1>
+        <h1>Soporte con titulo:".$this->titulo." </h1>
         <p>Soporte con Numero:".$this->getNumero()." </p>
         <p>Soporte con precio:".$this->precio." </p>
         <p>Soporte con precio con IVA:".$this->getPrecioConIva()." </p>
