@@ -3,9 +3,9 @@ class Videoclub
 {
     private $nombre;
     private $productos = array();
-    private $numProductos= array();
+    private $numProductos = array();
     private $socios = array();
-    private $numSocios= array();
+    private $numSocios = array();
 
     public function __construct($nombre__)
     {
@@ -34,19 +34,22 @@ class Videoclub
         $this->incluirProducto($nuevaConsola);
     }
 
-    public function incluirSocio($nombre_,$numero_,$maxAlquilerConcurrente_ = 3) {
-        $nuevoSocio = new Cliente($nombre_,$numero_,$maxAlquilerConcurrente_);
-        array_push($this->socios,$nuevoSocio);
+    public function incluirSocio($nombre_, $numero_, $maxAlquilerConcurrente_ = 3)
+    {
+        $nuevoSocio = new Cliente($nombre_, $numero_, $maxAlquilerConcurrente_);
+        array_push($this->socios, $nuevoSocio);
     }
 
-    private function incluirProducto(Soporte $producto) {
-        array_push($this->productos,$producto);
+    private function incluirProducto(Soporte $producto)
+    {
+        array_push($this->productos, $producto);
     }
-    public function alquilarSocioProducto($numeroCliente_, $numeroSoporte) {
+    public function alquilarSocioProducto($numeroCliente_, $numeroSoporte)
+    {
         foreach ($this->productos as $claveP => $product) {
-            if ($product->getNumero()==$numeroSoporte) {
+            if ($product->getNumero() == $numeroSoporte) {
                 foreach ($this->socios as $claveS => $socio) {
-                    
+
                     if ($socio->getNumero() == $numeroCliente_) {
 
                         $socio->alquilar($product);
@@ -56,16 +59,18 @@ class Videoclub
         }
     }
     //to_string
-    public function listarProductos() {
+    public function listarProductos()
+    {
         foreach ($this->productos as $clave => $producto) {
             $producto->muestraResumen();
         }
     }
-    public function listarSocios() {
+    public function listarSocios()
+    {
         echo "<h1>Lista de Socios</h1>";
         echo "<ol>";
         foreach ($this->socios as $clave => $socio) {
-            echo "<li>".$socio->listarAlquileres()."</li>";
+            echo "<li>" . $socio->listarAlquileres() . "</li>";
         }
         echo "</ol>";
     }
