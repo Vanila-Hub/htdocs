@@ -74,11 +74,8 @@ class Videoclub
     public function listarSocios()
     {
         echo "<h1>Lista de Socios</h1>";
-        echo "<ol>";
         foreach ($this->socios as $clave => $socio) {
-            var_dump($socio);
-            echo "<li>" . $socio->listarAlquileres() . "</li>";
+            echo $socio->listarAlquileres();
         }
-        echo "</ol>";
     }
 }
