@@ -1,5 +1,7 @@
 <?php
 namespace Dwes\ProyectoVideoclub\app;
+
+use Dwes\ProyectoVideoclub\app\Soporte;
 class Juego extends Soporte{
     public $consola;
     private $minNumJugadores;

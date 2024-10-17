@@ -1,20 +1,20 @@
 <?php
+// inicio3.php
 spl_autoload_register(function ($class) {
     $prefix = 'Dwes\\ProyectoVideoclub\\';
-    echo __DIR__;
-
-    $base_dir = __DIR__ . '/app/';
+    $base_dir = __DIR__ . '/'; // Cambié el path a '../app/'
 
     $len = strlen($prefix);
-    // if (strncmp($prefix, $class, $len) !== 0) {
-    //     return;
-    // }
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
 
     $relative_class = substr($class, $len);
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
     if (file_exists($file)) {
         require $file;
+    } else {
+        echo "File not found: $file"; // Para depuración
     }
 });
-?>

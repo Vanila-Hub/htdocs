@@ -1,6 +1,11 @@
 <?php
 namespace Dwes\ProyectoVideoclub\app;
 
+use Dwes\ProyectoVideoclub\app\CintaVideo;
+use Dwes\ProyectoVideoclub\app\Dvd;
+use Dwes\ProyectoVideoclub\app\Juego;
+use Dwes\ProyectoVideoclub\app\Cliente;
+
 class Videoclub
 {
     private $nombre;

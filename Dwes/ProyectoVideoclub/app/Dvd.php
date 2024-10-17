@@ -1,5 +1,7 @@
 <?php
 namespace Dwes\ProyectoVideoclub\app;
+
+use Dwes\ProyectoVideoclub\app\Soporte;
 class Dvd extends Soporte{
     public $idiomas;
     private $fromatPantalla;

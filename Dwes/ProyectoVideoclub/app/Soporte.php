@@ -1,6 +1,7 @@
 <?php
 namespace Dwes\ProyectoVideoclub\app;
 
+use Dwes\ProyectoVideoclub\app\Resumible;
 abstract class Soporte implements Resumible
 {
     public $titulo;
