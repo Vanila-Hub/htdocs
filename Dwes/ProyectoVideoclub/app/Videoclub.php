@@ -50,6 +50,9 @@ class Videoclub
     public function alquilarSocioProducto($numeroCliente_, $numeroSoporte)
     {
         foreach ($this->productos as $claveP => $product) {
+            for ($nSoport=0; $nSoport < count($nSoport) ; $nSoport++) { 
+                # code...
+            }
             if ($product->getNumero() == $numeroSoporte) {
                 foreach ($this->socios as $claveS => $socio) {
                     // if ( == $numeroCliente_) {

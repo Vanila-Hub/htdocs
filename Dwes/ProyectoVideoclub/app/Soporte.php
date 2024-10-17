@@ -5,6 +5,7 @@ use Dwes\ProyectoVideoclub\app\Resumible;
 abstract class Soporte implements Resumible
 {
     public $titulo;
+    public $alquilado;
     protected $numero;
     private $precio;
     private const IVA = 1.21;

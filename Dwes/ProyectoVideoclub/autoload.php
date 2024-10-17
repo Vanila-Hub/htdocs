@@ -2,7 +2,7 @@
 // inicio3.php
 spl_autoload_register(function ($class) {
     $prefix = 'Dwes\\ProyectoVideoclub\\';
-    $base_dir = __DIR__ . '/'; // Cambié el path a '../app/'
+    $base_dir = __DIR__ . '/';
 
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
@@ -15,6 +15,6 @@ spl_autoload_register(function ($class) {
     if (file_exists($file)) {
         require $file;
     } else {
-        echo "File not found: $file"; // Para depuración
+        echo "File not found: $file";
     }
 });

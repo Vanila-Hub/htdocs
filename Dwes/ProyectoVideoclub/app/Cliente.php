@@ -2,6 +2,9 @@
 namespace Dwes\ProyectoVideoclub\app;
 
 use Dwes\ProyectoVideoclub\app\Soporte;
+use Dwes\ProyectoVideoclub\Util\SoporteYaAlquiladoException;
+use Dwes\ProyectoVideoclub\Util\VideoclubException;
+
 class Cliente
 {
     public $nombre;
@@ -45,7 +48,7 @@ class Cliente
     public function alquilar(Soporte $s): bool
     {
         if (in_array($s, $this->sopostesAlquilados)) {
-            echo "<p>Soporte ya alquilado</p>";
+            throw new SoporteYaAlquiladoException("Soporte no encontrado en los alquileres.");
             return false;
         } elseif ($this->maxAlquilerConcurrente >= $this->numSoportesAlquilados) {
             array_push($this->sopostesAlquilados, $s);
@@ -53,7 +56,8 @@ class Cliente
             echo "<p>Soporte alquilado con exito y actualizada numero de soportes alquilados a " . $this->numSoportesAlquilados . "</p>";
             return true;
         } else {
-            echo "<p>Cupo de alquiler lleno ", $this->numSoportesAlquilados, "</p>";
+            throw new VideoclubException("Cupo de alquiler lleno");
+            // echo "<p>Cupo de alquiler lleno ", $this->numSoportesAlquilados, "</p>";
             return false;
         }
     }
