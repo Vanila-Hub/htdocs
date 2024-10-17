@@ -1,10 +1,5 @@
 <?php
-
-namespace Soporte;
-
-include_once('Resumible.php');
-
-use Resumible\Resumible as Resumible;
+namespace Dwes\ProyectoVideoclub\app;
 
 abstract class Soporte implements Resumible
 {

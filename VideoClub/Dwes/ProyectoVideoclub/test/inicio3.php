@@ -1,9 +1,7 @@
 <?php
-include_once "Dwes/ProyectoVideoclub/Videoclub.php";
-
-use Videoclub\Videoclub as Videoclub;
-
-$vc = new Videoclub\Videoclub("2DAW3");
+require_once __DIR__ . '/../autoload.php';
+use Dwes\ProyectoVideoclub\app\Videoclub;
+$vc = new Videoclub("2DAW3");
 //voy a incluir unos cuantos soportes de prueba
 $vc->incluirJuego("God of War",1, 19.99, "PS4", 1, 1);
 $vc->incluirJuego("The Last of Us Part II",2, 49.99, "PS4", 1, 1);

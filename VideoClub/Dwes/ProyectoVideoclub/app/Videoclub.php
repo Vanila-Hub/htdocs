@@ -1,10 +1,6 @@
 <?php
-namespace Videoclub;
-use CintaVideo\CintaVideo as CintaVideo;
-use Dvd\Dvd as Dvd;
-use Juego\Juego as Juego;
-use Cliente\Cliente as Cliente;
-use Soporte\Soporte as Soporte;
+namespace Dwes\ProyectoVideoclub\app;
+
 class Videoclub
 {
     private $nombre;
@@ -75,6 +71,7 @@ class Videoclub
         echo "<h1>Lista de Socios</h1>";
         echo "<ol>";
         foreach ($this->socios as $clave => $socio) {
+            var_dump($socio);
             echo "<li>" . $socio->listarAlquileres() . "</li>";
         }
         echo "</ol>";

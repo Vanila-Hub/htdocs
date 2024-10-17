@@ -1,6 +1,6 @@
 <?php
-namespace Cliente;
-use Soporte\Soporte as Soporte;
+namespace Dwes\ProyectoVideoclub\app;
+
 class Cliente
 {
     public $nombre;
