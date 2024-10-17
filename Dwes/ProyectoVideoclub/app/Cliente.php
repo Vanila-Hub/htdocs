@@ -68,11 +68,10 @@ class Cliente
                 echo "<p>Soporte Devuelto " . $this->sopostesAlquilados[$clave]->titulo . "</p>";
                 unset($this->sopostesAlquilados[$clave]);
                 $this->setnumSoportesAlquilados();
-                return true;
+                return $this;
             }
         }
-        echo "No se puede devolver el soporte porque no esta alquilado";
-        return false;
+        return $this;
     }
     public function listarAlquileres()
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Dwes\ProyectoVideoclub\app;
 
 
@@ -7,6 +8,8 @@ class Videoclub
     private $nombre;
     private $productos = array();
     private $numProductos = array();
+    private $numProductosAlquilados = 0;
+    private $numTotalAlquileres = 0;
     private $socios = array();
     private $numSocios;
 
@@ -50,9 +53,6 @@ class Videoclub
     public function alquilarSocioProducto($numeroCliente_, $numeroSoporte)
     {
         foreach ($this->productos as $claveP => $product) {
-            for ($nSoport=0; $nSoport < count($nSoport) ; $nSoport++) { 
-                # code...
-            }
             if ($product->getNumero() == $numeroSoporte) {
                 foreach ($this->socios as $claveS => $socio) {
                     // if ( == $numeroCliente_) {
@@ -77,4 +77,9 @@ class Videoclub
             echo $socio->listarAlquileres();
         }
     }
+    
+    public function alquilarSocioProductos(int $numSocio,
+    array $numerosProductos) {}
+    public function devolverSocioProducto(int $numSocio, int $numeroProducto) {}
+    public function devolverSocioProductos(int $numSocio, array $numerosProductos) {}
 }

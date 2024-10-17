@@ -5,7 +5,7 @@ use Exception;
 
 class SoporteNoEncontradoException extends Exception{
     public function errorMessage(){
-        return "Soporte: ";
+        return "Soporte: " . $this->getMessage();
     }
 }
 ?>
