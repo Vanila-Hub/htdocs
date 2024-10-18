@@ -5,7 +5,7 @@ use Dwes\ProyectoVideoclub\app\Resumible;
 abstract class Soporte implements Resumible
 {
     public $titulo;
-    public $alquilado;
+    public $alquilado = false;
     protected $numero;
     private $precio;
     private const IVA = 1.21;
@@ -17,18 +17,29 @@ abstract class Soporte implements Resumible
         $this->numero = $numero_;
     }
 
-    public function getPrecio()
+    public function getPrecio():float
     {
         return $this->precio;
     }
-    public function getPrecioConIva()
+    public function getPrecioConIva():float
     {
         return $this->precio * self::IVA;
     }
-    public function getNumero()
+    public function getNumero():int
     {
         return $this->numero;
     }
+
+    public function getAlquilado()
+    {
+        return $this->alquilado;
+    }
+
+    public function setAlquilado($alquilado)
+    {
+        $this->alquilado = $alquilado;
+    }
+
     public function muestraResumen()
     {
         $output = "

@@ -1,86 +1,52 @@
 <?php
+
 namespace Dwes\ProyectoVideoclub\app;
 
-use Dwes\ProyectoVideoclub\app\Soporte;
+use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
 use Dwes\ProyectoVideoclub\Util\SoporteYaAlquiladoException;
-use Dwes\ProyectoVideoclub\Util\VideoclubException;
 
-class Cliente
-{
-    public $nombre;
+class Cliente {
+    private $nombre;
     private $numero;
-    private $sopostesAlquilados = array();
-    private $numSoportesAlquilados = 0;
     private $maxAlquilerConcurrente;
+    private $alquileres = array();
 
-    // nombre, numero y maxAlquilerConcurrente
-    public function __construct($nombre_, $numero_, $maxAlquilerConcurrente_ = 3)
-    {
-        $this->nombre = $nombre_;
-        $this->numero = $numero_;
-        $this->maxAlquilerConcurrente = $maxAlquilerConcurrente_;
+    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3) {
+        $this->nombre = $nombre;
+        $this->numero = $numero;
+        $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
     }
-    public function setNumero($numero_)
-    {
-        $this->numero = $numero_;
-    }
-    public function getNumero()
-    {
-        return $this;
-    }
-    public function setnumSoportesAlquilados()
-    {
-        $this->numSoportesAlquilados = count($this->sopostesAlquilados);
-    }
-    public function getnumSoportesAlquilados()
-    {
-        return $this->numSoportesAlquilados;
-    }
-    public function muestraResumen()
-    {
-        echo "Nombre del Cliente:" . $this->nombre;
-        echo "Cantidad de alquileres: " . $this->numSoportesAlquilados;
-    }
-    public function tieneAlquilado(Soporte $s): bool
-    {
-        return in_array($s, $this->sopostesAlquilados);
-    }
-    public function alquilar(Soporte $s): bool
-    {
-        if (in_array($s, $this->sopostesAlquilados)) {
-            throw new SoporteYaAlquiladoException("Soporte no encontrado en los alquileres.");
-            return false;
-        } elseif ($this->maxAlquilerConcurrente >= $this->numSoportesAlquilados) {
-            array_push($this->sopostesAlquilados, $s);
-            $this->setnumSoportesAlquilados();
-            echo "<p>Soporte alquilado con exito y actualizada numero de soportes alquilados a " . $this->numSoportesAlquilados . "</p>";
-            return true;
-        } else {
-            throw new VideoclubException("Cupo de alquiler lleno");
-            // echo "<p>Cupo de alquiler lleno ", $this->numSoportesAlquilados, "</p>";
-            return false;
+
+    public function alquilar(Soporte $producto) {
+        if ($producto->getAlquilado()) {
+            throw new SoporteYaAlquiladoException("El soporte ya está alquilado.");
         }
+        if (count($this->alquileres) >= $this->maxAlquilerConcurrente) {
+            throw new \Exception("Se ha alcanzado el máximo de alquileres concurrentes.");
+        }
+        $producto->setAlquilado(true);
+        $this->alquileres[] = $producto;
+        return $this; // Permite el encadenamiento
     }
-    public function devolver(int $numSoporte)
-    {
-        foreach ($this->sopostesAlquilados as $clave => $producto) {
-            if ($producto->getNumero() == $numSoporte) {
-                echo "<p>Soporte Devuelto " . $this->sopostesAlquilados[$clave]->titulo . "</p>";
-                unset($this->sopostesAlquilados[$clave]);
-                $this->setnumSoportesAlquilados();
-                return $this;
+
+    public function devolver($numeroProducto) {
+        foreach ($this->alquileres as $key => $alquiler) {
+            if ($alquiler->getNumero() == $numeroProducto) {
+                $alquiler->setAlquilado(false);
+                unset($this->alquileres[$key]);
+                return $this; // Permite el encadenamiento
             }
         }
-        return $this;
+        throw new SoporteNoEncontradoException("El soporte no se encontró en los alquileres.");
     }
-    public function listarAlquileres()
-    {
-        echo "<h1>  El cliente ". $this->nombre." tiene " .$this->numSoportesAlquilados . " soportes alqulados</h1>";
-        $output = "<ol>";
-        foreach ($this->sopostesAlquilados as $soport) {
-            $output .= "<li>" . $soport->titulo . "</li>";
+
+    public function getNumero() {
+        return $this->numero;
+    }
+
+    public function listarAlquileres() {
+        foreach ($this->alquileres as $alquiler) {
+            echo $alquiler->muestraResumen(); // Llama al método de resumen de Soporte
         }
-        $output .= "</ol>";
-        echo $output;
     }
 }

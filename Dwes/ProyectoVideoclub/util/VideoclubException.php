@@ -6,7 +6,7 @@ use Exception;
 
 class VideoclubException extends Exception{
     public function errorMessage(){
-        return "VideoClub: ". $this->getMessage();
+        return "<p>Cliente Error: " . $this->getMessage()."</p>";
     }
 }
 ?>

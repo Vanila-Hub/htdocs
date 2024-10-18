@@ -5,7 +5,7 @@ use Exception;
 
 class ClienteNoEncontradoException extends Exception{
     public function errorMessage(){
-        return "Cliente Error: " . $this->getMessage();
+        return "<p>Cliente Error: " . $this->getMessage()."</p>";
     }
 }
 ?>
