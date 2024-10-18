@@ -4,6 +4,7 @@ namespace Dwes\ProyectoVideoclub\app;
 
 use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
 use Dwes\ProyectoVideoclub\Util\SoporteYaAlquiladoException;
+use Dwes\ProyectoVideoclub\Util\VideoclubException;
 
 class Cliente {
     private $nombre;
@@ -22,23 +23,25 @@ class Cliente {
             throw new SoporteYaAlquiladoException("El soporte ya está alquilado.");
         }
         if (count($this->alquileres) >= $this->maxAlquilerConcurrente) {
-            throw new \Exception("Se ha alcanzado el máximo de alquileres concurrentes.");
+            throw new VideoclubException("Se ha alcanzado el máximo de alquileres concurrentes.");
         }
         $producto->setAlquilado(true);
         $this->alquileres[] = $producto;
-        return $this; // Permite el encadenamiento
+        return $this; 
     }
+    
 
     public function devolver($numeroProducto) {
         foreach ($this->alquileres as $key => $alquiler) {
             if ($alquiler->getNumero() == $numeroProducto) {
                 $alquiler->setAlquilado(false);
                 unset($this->alquileres[$key]);
-                return $this; // Permite el encadenamiento
+                return $this;
             }
         }
         throw new SoporteNoEncontradoException("El soporte no se encontró en los alquileres.");
     }
+    
 
     public function getNumero() {
         return $this->numero;
@@ -46,7 +49,7 @@ class Cliente {
 
     public function listarAlquileres() {
         foreach ($this->alquileres as $alquiler) {
-            echo $alquiler->muestraResumen(); // Llama al método de resumen de Soporte
+            echo $alquiler->muestraResumen();
         }
     }
 }

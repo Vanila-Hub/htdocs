@@ -20,4 +20,6 @@ $videoclub->alquilarSocioProductos(1, [1, 2]); // María López intenta alquilar
 $videoclub->devolverSocioProducto(0, 0); // Juan Pérez devuelve Star Wars
 
 $videoclub->devolverSocioProductos(0, [1, 2]); // Juan Pérez intenta devolver Matrix y FIFA 2022
+
+
 ?>
