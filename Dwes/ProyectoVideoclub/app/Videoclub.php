@@ -1,5 +1,13 @@
 <?php
 
+
+/**
+ * esto simula la operación de un videoclub, incluyendo la 
+ * inclusión de productos (Soporte) 
+ * la gestión de socios y el proceso de alquiler y devolución multiple o unico 
+ * y atrapar las excepciones tiradas en clases que hace uso
+ */
+
 namespace Dwes\ProyectoVideoclub\app;
 
 use Dwes\ProyectoVideoclub\Util\ClienteNoEncontradoException;

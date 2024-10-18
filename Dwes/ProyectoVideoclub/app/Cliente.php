@@ -39,7 +39,7 @@ class Cliente {
                 return $this;
             }
         }
-        throw new SoporteNoEncontradoException("El soporte no se encontró en los alquileres.");
+        throw new SoporteNoEncontradoException("El soporte no se encontro en los alquilere");
     }
     
 
