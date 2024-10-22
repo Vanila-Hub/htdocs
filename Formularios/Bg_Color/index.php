@@ -1,3 +1,16 @@
+    <?php
+    $_bgColor = "";
+
+    if (isset($_COOKIE["bgColor"])) {
+        $_bgColor = $_COOKIE["bgColor"];
+        echo $_bgColor;
+    }else{
+        $_bgColor = "white";
+    }
+    if (isset($_GET["bgColor"])) {
+        setcookie("bgColor", $_GET["bgColor"], time() + 6);
+    }
+    ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,26 +31,21 @@
         }
     </style>
 
-    <?php
-    $bgColor = "red";
-    if (isset($_POST["bgColor"])) {
-        echo $_POST["bgColor"];
-    }
-    ?>
 </head>
 
-<body style="background-color: <?php htmlspecialchars($bgColor)?>;">
+<body style="background-color: <?php echo $_bgColor ?>;">
+
     <h1>Elige un color de fondo</h1>
 
-    <form id="colorForm" action="<?php echo $_SERVER["PHP_SELF"]?>">
+    <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="get">
         <label for="bgColor">Selecciona un color:</label>
         <select id="bgColor" name="bgColor">
-            <option value="Blanco">Blanco</option>
-            <option value="Gris">Gris</option>
-            <option value="Azul">Azul</option>
-            <option value="Verde">Verde</option>
-            <option value="Amarillo">Amarillo</option>
-            <option value="Rosa">Rosa</option>
+            <option <?php $_bgColor = "white" ?>>Blanco</option>
+            <option value="gray">Gris</option>
+            <option value="blue">Azul</option>
+            <option value="green">Verde</option>
+            <option value="yellow">Amarillo</option>
+            <option value="pink">Rosa</option>
         </select>
         <button type="submit">Cambiar color de fondo</button>
     </form>
