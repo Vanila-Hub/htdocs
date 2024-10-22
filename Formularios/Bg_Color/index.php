@@ -1,14 +1,14 @@
     <?php
     $_bgColor = "";
 
+    if (isset($_GET["bgColor"])) {
+        setcookie("bgColor", $_GET["bgColor"], time() + 6);
+    }
     if (isset($_COOKIE["bgColor"])) {
         $_bgColor = $_COOKIE["bgColor"];
         echo $_bgColor;
     }else{
         $_bgColor = "white";
-    }
-    if (isset($_GET["bgColor"])) {
-        setcookie("bgColor", $_GET["bgColor"], time() + 6);
     }
     ?>
 <!DOCTYPE html>
