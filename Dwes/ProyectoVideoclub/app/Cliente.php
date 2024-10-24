@@ -8,15 +8,25 @@ use Dwes\ProyectoVideoclub\Util\VideoclubException;
 
 class Cliente {
     private $nombre;
+    private $user;
+    private $password;
     private $numero;
     private $maxAlquilerConcurrente;
     private $alquileres = array();
 
-    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3) {
+    public function __construct($nombre, $numero,$user,$password,$maxAlquilerConcurrente = 3) {
         $this->nombre = $nombre;
         $this->numero = $numero;
+        $this->user=$user;
+        $this->password=$password;
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
     }
+
+    //Stter the user and password
+    public function getUser(){ return $this->user;}
+    public function getNombre(){ return $this->nombre;}
+    public function getPassword(){return $this->password;}
+    public function getMaxAlquilerConcurrente(){return $this->maxAlquilerConcurrente;}
 
     public function alquilar(Soporte $producto) {
         if ($producto->getAlquilado()) {
