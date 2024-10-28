@@ -28,7 +28,7 @@ class Cliente {
     public function getPassword(){return $this->password;}
     public function getMaxAlquilerConcurrente(){return $this->maxAlquilerConcurrente;}
 
-    public function alquilar(Soporte $producto) {
+    public function alquilar(Soporte $producto) {   
         if ($producto->getAlquilado()) {
             throw new SoporteYaAlquiladoException("El soporte ya está alquilado.");
         }
@@ -61,5 +61,8 @@ class Cliente {
         foreach ($this->alquileres as $alquiler) {
             echo $alquiler->muestraResumen();
         }
+    }
+    public function getAlquileres(): array{
+        return $this->alquileres;
     }
 }
