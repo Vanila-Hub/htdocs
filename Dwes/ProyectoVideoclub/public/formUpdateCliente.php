@@ -1,28 +1,60 @@
+<?php
+session_start();
+require_once __DIR__ . '/../autoload.php';
+
+use Dwes\ProyectoVideoclub\app\Cliente;
+
+// Verifica si el usuario está logueado y si tiene permisos de administrador
+if (!isset($_SESSION['usuario']) || !$_SESSION['isAdmin']) {
+    header("Location: index.php");
+    exit();
+}
+
+// Obtén el cliente a editar desde la sesión o la base de datos
+$clienteId = $_GET['id'] ?? null; // Asegúrate de que este ID se pasa como parámetro en la URL
+$cliente = $_SESSION['clientes'][$clienteId] ?? null;
+
+if (!$cliente) {
+    echo "Cliente no encontrado.";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Cliente</title>
+    <title>Editar Cliente</title>
 </head>
 <body>
-    <h1>Actualizar Cliente</h1>
-    <form action="createCliente.php" method="post">
+    <h1>Editar Cliente</h1>
+    <form action="updateCliente.php" method="post">
+        <label for="nombre">ID del cliente:</label>
+        <input type="number" name="clienteId">
+
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <br>
+        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($cliente->getNombre()); ?>" required>
+        <br><br>
+
         <label for="usuario">Usuario:</label>
-        <input type="text" id="usuario" name="usuario" required>
-        <br>
+        <input type="text" id="usuario" name="usuario" value="<?php echo htmlspecialchars($cliente->getUser()); ?>" required>
+        <br><br>
+
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
+        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($cliente->getPassword()); ?>" required>
+        <br><br>
+
         <label for="numero">Número:</label>
-        <input type="number" id="numero" name="numero" required>
-        <label for="alquiler">Max alquiler cocurente:</label>
-        <input type="number" id="alquiler" name="alquiler" required>
-        <br>
+        <input type="number" id="numero" name="numero" value="<?php echo htmlspecialchars($cliente->getNumero()); ?>" min="1" required>
+        <br><br>
+
+        <label for="alquiler">Máximo Alquiler Concurrente:</label>
+        <input type="number" id="alquiler" name="alquiler" value="<?php echo htmlspecialchars($cliente->getMaxAlquilerConcurrente()); ?>" min="1" required>
+        <br><br>
+
         <button type="submit">Actualizar Cliente</button>
     </form>
+
     <a href="mainAdmin.php">Volver</a>
 </body>
 </html>
