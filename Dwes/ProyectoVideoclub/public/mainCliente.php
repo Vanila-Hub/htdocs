@@ -9,9 +9,10 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-$cliente = $_SESSION['usuario']; // Aquí se supone que has guardado un solo cliente en la sesión
+// Convierte el JSON del cliente en un objeto Cliente
+$cliente = Cliente::fromJSON($_SESSION['usuario']); // Convertir el JSON a un objeto Cliente
 
-echo "<h1>Bienvenido, " . $cliente->getNombre() . "</h1>";
+echo "<h1>Bienvenido, " . htmlspecialchars($cliente->getNombre()) . "</h1>";
 
 echo "<h2>Listado de Alquileres:</h2>";
 if (empty($cliente->getAlquileres())) {
@@ -19,7 +20,8 @@ if (empty($cliente->getAlquileres())) {
 } else {
     echo "<ul>";
     foreach ($cliente->getAlquileres() as $alquiler) {
-        echo "<li>" . $alquiler->muestraResumen() . "</li>"; // Se supone que hay un método muestraResumen() en el objeto Soporte
+        echo "<li>" . htmlspecialchars($alquiler->muestraResumen()) . "</li>"; // Se supone que hay un método muestraResumen() en el objeto Soporte
     }
     echo "</ul>";
 }
+?>

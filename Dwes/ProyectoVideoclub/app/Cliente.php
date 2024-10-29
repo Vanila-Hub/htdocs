@@ -65,4 +65,30 @@ class Cliente {
     public function getAlquileres(): array{
         return $this->alquileres;
     }
+    
+        // Convierte el objeto a un formato JSON
+        public function toJSON() {
+            return json_encode([
+                'nombre' => $this->nombre,
+                'numero' => $this->numero,
+                'user' => $this->user,
+                'password' => $this->password,        
+                'maxAlquilerConcurrente' => $this->maxAlquilerConcurrente,
+                'soportesAlquilados' => $this->alquileres
+            ]);
+        }
+    
+        // Crea un objeto Cliente a partir de un JSON
+        public static function fromJSON($jsonData) {
+            $data = json_decode($jsonData, true);
+            $cliente = new Cliente(
+                $data['nombre'],
+                $data['numero'],
+                $data['user'],
+                $data['password'],
+                $data['maxAlquilerConcurrente']
+            );
+            $cliente->alquileres = $data['soportesAlquilados'];
+            return $cliente;
+        }
 }

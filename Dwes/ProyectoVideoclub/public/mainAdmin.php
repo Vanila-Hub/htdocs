@@ -6,19 +6,26 @@ use Dwes\ProyectoVideoclub\app\Cliente;
 
 session_start();
 
-
 // Comprobar si el usuario está logueado
 if (!isset($_SESSION['usuario'])) {
     header("Location: index.php");
     exit();
 }
 
+// Verificar si los usuarios ya están en formato de objeto Cliente
 $usuarios = $_SESSION['usuario'];
 
-$videoclub_datos = [];
-if (isset($_SESSION['soportes'])) {
-    $videoclub_datos = $_SESSION['soportes'];
+if (is_array($usuarios) && is_object($usuarios[0]) && $usuarios[0] instanceof Cliente) {
+    // Los datos ya están en formato de objeto Cliente, no es necesario convertir desde JSON
+} else {
+    // Convertir cada JSON en $_SESSION['usuario'] a un objeto Cliente
+    $usuarios = array_map(function($usuarioJSON) {
+        return Cliente::fromJSON($usuarioJSON);
+    }, (array)$_SESSION['usuario']);
 }
+
+// Cargar los datos del videoclub si existen
+$videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +39,7 @@ if (isset($_SESSION['soportes'])) {
 <body>
 
     <?php
+    // Mostrar la información de cada usuario
     foreach ($usuarios as $user) {
         echo "<h1>Bienvenido, " . htmlspecialchars($user->getUser()) . "</h1>";
         echo "<p>Nombre: " . htmlspecialchars($user->getNombre()) . "</p>";
@@ -48,20 +56,20 @@ if (isset($_SESSION['soportes'])) {
         <h3>Soportes</h3>
         <ul>
             <?php foreach ($videoclub_datos['soportes'] as $soporte): ?>
-                <li><?php echo $soporte['titulo'] . " (" . $soporte['tipo'] . ") - Precio: " . $soporte['precio']; ?></li>
+                <li><?php echo htmlspecialchars($soporte['titulo']) . " (" . htmlspecialchars($soporte['tipo']) . ") - Precio: " . htmlspecialchars($soporte['precio']); ?></li>
             <?php endforeach; ?>
         </ul>
 
         <h3>Socios</h3>
         <ul>
             <?php foreach ($videoclub_datos['socios'] as $socio): ?>
-                <li><?php echo $socio['nombre'] . " (ID: " . $socio['id'] . ")"; ?></li>
+                <li><?php echo htmlspecialchars($socio['nombre']) . " (ID: " . htmlspecialchars($socio['id']) . ")"; ?></li>
             <?php endforeach; ?>
         </ul>
-        <?php endif; ?>
-        <h1>Crear Nuevo Cliente</h1>
-        <a href="createCliente.php">Crear Cliente</a>
+    <?php endif; ?>
+    
+    <h1>Crear Nuevo Cliente</h1>
+    <a href="createCliente.php">Crear Cliente</a>
 
 </body>
-
 </html>
