@@ -58,7 +58,9 @@ if (isset($_SESSION['soportes'])) {
                 <li><?php echo $socio['nombre'] . " (ID: " . $socio['id'] . ")"; ?></li>
             <?php endforeach; ?>
         </ul>
-    <?php endif; ?>
+        <?php endif; ?>
+        <h1>Crear Nuevo Cliente</h1>
+        <a href="createCliente.php">Crear Cliente</a>
 
 </body>
 

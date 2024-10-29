@@ -5,7 +5,7 @@
     <title>Crear Cliente</title>
 </head>
 <body>
-    <h1>Crear Nuevo Cliente</h1>
+    <h1>Actualizar Cliente</h1>
     <form action="createCliente.php" method="post">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -21,7 +21,7 @@
         <label for="alquiler">Max alquiler cocurente:</label>
         <input type="number" id="alquiler" name="alquiler" required>
         <br>
-        <button type="submit">Crear Cliente</button>
+        <button type="submit">Actualizar Cliente</button>
     </form>
     <a href="mainAdmin.php">Volver</a>
 </body>
