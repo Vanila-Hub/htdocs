@@ -34,6 +34,11 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <script>
+        function confirmDelete(clienteNumero) {
+            return confirm("¿Estás seguro de que deseas eliminar este cliente?");
+        }
+    </script>
 </head>
 
 <body>
@@ -44,6 +49,8 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
         echo "<h1>Bienvenido, " . htmlspecialchars($user->getUser()) . "</h1>";
         echo "<p>Nombre: " . htmlspecialchars($user->getNombre()) . "</p>";
         echo "<p>Número: " . htmlspecialchars($user->getNumero()) . "</p>";
+        echo "<p>Pulsa <a href='removeCliente.php?id=" . htmlspecialchars($user->getNumero()) . "' onclick='return confirmDelete(" . htmlspecialchars($user->getNumero()) . ");'>aquí</a> para borrar el cliente.</p>";
+        echo "<p>Pulsa <a href='formUpdateCliente.php?id=" . htmlspecialchars($user->getNumero()) . "'>aquí</a> para actualizar el cliente.</p>";
         echo "<p>Máximo Alquiler Concurrente: " . htmlspecialchars($user->getMaxAlquilerConcurrente()) . "</p>";
     }
     ?>

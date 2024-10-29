@@ -19,8 +19,15 @@ $numero = (int) $_POST['numero'];
 $alquiler = (int) $_POST['alquiler'];
 
 // Validar los datos
-if (empty($nombre) || empty($usuario) || empty($password) || empty($numero) || empty($alquiler)) {
-    $_SESSION['error'] = "Todos los campos son obligatorios.";
+if (empty($nombre) || empty($usuario) || empty($numero) || empty($alquiler)) {
+    $_SESSION['error'] = "Todos los campos son obligatorios excepto la contraseña.";
+    header("Location: formUpdateCliente.php?id=$clienteId");
+    exit();
+}
+
+// Validar que número y alquiler son positivos
+if ($numero <= 0 || $alquiler <= 0) {
+    $_SESSION['error'] = "El número y el máximo de alquiler concurrente deben ser positivos.";
     header("Location: formUpdateCliente.php?id=$clienteId");
     exit();
 }
@@ -36,7 +43,12 @@ if (!$cliente) {
 // Actualizar los datos del cliente
 $cliente->setNombre($nombre);
 $cliente->setUser($usuario);
-$cliente->setPassword($password);
+
+// Actualizar la contraseña solo si se proporciona
+if (!empty($password)) {
+    $cliente->setPassword($password);
+}
+
 $cliente->setNumero($numero);
 $cliente->setMaxAlquilerConcurrente($alquiler);
 

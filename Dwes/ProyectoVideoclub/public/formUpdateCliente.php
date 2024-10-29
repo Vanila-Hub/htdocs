@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario']) || !$_SESSION['isAdmin']) {
     exit();
 }
 
-// Obtén el cliente a editar desde la sesión o la base de datos
+// Obtén el cliente a editar desde la sesión
 $clienteId = $_GET['id'] ?? null; // Asegúrate de que este ID se pasa como parámetro en la URL
 $cliente = $_SESSION['clientes'][$clienteId] ?? null;
 
@@ -29,8 +29,7 @@ if (!$cliente) {
 <body>
     <h1>Editar Cliente</h1>
     <form action="updateCliente.php" method="post">
-        <label for="nombre">ID del cliente:</label>
-        <input type="number" name="clienteId">
+        <input type="hidden" name="clienteId" value="<?php echo htmlspecialchars($clienteId); ?>">
 
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($cliente->getNombre()); ?>" required>
@@ -40,8 +39,8 @@ if (!$cliente) {
         <input type="text" id="usuario" name="usuario" value="<?php echo htmlspecialchars($cliente->getUser()); ?>" required>
         <br><br>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($cliente->getPassword()); ?>" required>
+        <label for="password">Contraseña (dejar en blanco para no cambiar):</label>
+        <input type="password" id="password" name="password">
         <br><br>
 
         <label for="numero">Número:</label>
