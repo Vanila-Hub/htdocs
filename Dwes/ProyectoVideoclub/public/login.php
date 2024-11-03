@@ -9,8 +9,8 @@ if (!isset($_SESSION['clientes'])) {
     $clientes = [
         new Cliente('Juan Perez', 1, 'juan', '1234', 3),
         new Cliente('Maria Lopez', 2, 'maria', '5678', 2),
-        new Cliente('usuario', 2, "usuario", "usuario", 2),
-        new Cliente('user', 2, "user", "user", 2),
+        new Cliente('usuario', 3, "usuario", "usuario", 2),
+        new Cliente('user', 4, "user", "user", 2),
     ];
 
     // Convierte los objetos Cliente a JSON y los almacena en la sesión
