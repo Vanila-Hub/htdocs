@@ -1,18 +1,20 @@
 <?php
 require_once __DIR__ . '/../autoload.php';
 use Dwes\ProyectoVideoclub\app\Cliente;
-use Dwes\ProyectoVideoclub\app\Soporte;
+use Dwes\ProyectoVideoclub\app\CintaVideo;
 
 session_start();
 
 // Inicializa los clientes solo si no existen en la sesión
 if (!isset($_SESSION['clientes'])) {
     // Inicializa los soportes
+// Suponiendo que has creado la clase CintaVideo correctamente
 $soportes = [
-    new Soporte('Star Wars', 1, 10),
-    new Soporte('Matrix', 2, 15),
-    new Soporte('FIFA 2022', 3, 60),
+    new CintaVideo('Star Wars', 1, 10, 120), // La duración se puede ajustar
+    new CintaVideo('Matrix', 2, 15, 136),
+    new CintaVideo('FIFA 2022', 3, 60, 90),
 ];
+
 
     $clientes = [
         new Cliente('Juan Perez', 1, 'juan', '1234', 3),
@@ -47,6 +49,13 @@ if (isset($_POST['enviar'])) {
     } else {
         foreach ($clientes as $cliente) {
             if ($cliente->getUser() === $usuario && $cliente->getPassword() === $password) {
+                $soportes = [
+                    new CintaVideo('Star Wars', 1, 10, 120), // La duración se puede ajustar
+                    new CintaVideo('Matrix', 2, 15, 136),
+                    new CintaVideo('FIFA 2022', 3, 60, 90),
+                ];
+                $cliente->alquilar($soportes[0]); 
+                $cliente->alquilar($soportes[1]); 
                 // Almacena el cliente en la sesión para la página del cliente
                 $_SESSION['usuario'] = $cliente->toJSON(); // Guardar el cliente como JSON
                 header("Location: mainCliente.php");

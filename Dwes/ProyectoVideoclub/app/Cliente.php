@@ -65,7 +65,7 @@ class Cliente {
     public function getAlquileres(): array{
         return $this->alquileres;
     }
-    
+        
         // Convierte el objeto a un formato JSON
         public function toJSON() {
             return json_encode([

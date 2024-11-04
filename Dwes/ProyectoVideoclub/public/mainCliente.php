@@ -97,6 +97,20 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
         echo "<p>Número: " . htmlspecialchars($user->getNumero()) . "</p>";
         echo "<p>Máximo Alquiler Concurrente: " . htmlspecialchars($user->getMaxAlquilerConcurrente()) . "</p>";
         echo '<a href="formUpdateCliente.php?id=' . urlencode($user->getNumero()) . '"><button>Editar Mis Datos</button></a>';
+        
+        // Listar alquileres usando el método getAlquileres()
+        echo "<h3>Alquileres:</h3>";
+        $alquileres = $user->getAlquileres(); // Call the new method to get the rentals
+        if (!empty($alquileres)) {
+            echo "<ul>";
+            foreach ($alquileres as $alquiler) {
+                echo "<li>" . htmlspecialchars($alquiler['titulo']) . " (Alquilado: " . ($alquiler['alquilado'] ? 'Sí' : 'No') . ")</li>";
+            }
+            echo "</ul>";
+        } else {
+            echo "<p>No hay alquileres.</p>";
+        }
+
         echo '</div>';
     }
     ?>

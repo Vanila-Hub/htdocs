@@ -13,6 +13,7 @@ if (!isset($_SESSION['usuario'])) {
 $usuarios = $_SESSION['usuario'];
 
 if (is_array($usuarios) && isset($usuarios[0]) && is_object($usuarios[0]) && $usuarios[0] instanceof Cliente) {
+    // Do nothing, already have Cliente objects
 } else {
     $usuarios = array_map(function($usuarioJSON) {
         return Cliente::fromJSON($usuarioJSON);
@@ -107,6 +108,19 @@ $userRole = "admin";
             echo "<p>Máximo Alquiler Concurrente: " . htmlspecialchars($user->getMaxAlquilerConcurrente()) . "</p>";
             echo '<a href="formUpdateCliente.php?id=' . urlencode($user->getNumero()) . '&role=' . urlencode($userRole) . '"><button>Editar Cliente</button></a>';
             echo ' <a href="#" onclick="confirmDelete(' . htmlspecialchars($user->getNumero()) . ')">Eliminar</a>';
+            
+            // Listar alquileres usando el método getAlquileres()
+            echo "<h3>Alquileres:</h3>";
+            $alquileres = $user->getAlquileres(); // Call the new method to get the rentals
+            if (!empty($alquileres)) {
+                echo "<ul>";
+                foreach ($alquileres as $alquiler) {
+                    echo "<li>" . htmlspecialchars($alquiler['titulo']) . " (Alquilado: " . ($alquiler['alquilado'] ? 'Sí' : 'No') . ")</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p>No hay alquileres.</p>";
+            }
             echo '</div>';
         } else {
             echo "<p>Error: Usuario no válido.</p>";
