@@ -39,7 +39,7 @@ if (isset($_POST['enviar'])) {
     if ($usuarioEntrante === "admin" && $claveEntrante === "admin") {
         $_SESSION['usuario'] = $clientesDeserializados; 
         $_SESSION['soportes'] = [
-            ['titulo' => 'Star Wars', 'tipo' => 'Cinta Video', 'precio' => 10, 'duracion' => 120, 'alquilado' => false],
+            ['titulo' => 'Ghost in the Shell', 'tipo' => 'Cinta Video', 'precio' => 100, 'duracion' => 120, 'alquilado' => false],
             ['titulo' => 'Matrix', 'tipo' => 'DVD', 'precio' => 15, 'idiomas' => 'Inglés, Español', 'pantalla' => '16:9', 'alquilado' => false],
             ['titulo' => 'FIFA 2022', 'tipo' => 'Juego', 'precio' => 60, 'consola' => 'PS5', 'minJugadores' => 1, 'maxJugadores' => 4, 'alquilado' => false]
         ];

@@ -22,7 +22,6 @@ if (is_array($usuarios) && isset($usuarios[0]) && is_object($usuarios[0]) && $us
 $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
 $userRole = "admin";
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -83,11 +82,11 @@ $userRole = "admin";
         }
 
         .delete-button {
-            background-color: #2196F3; /* Azul */
+            background-color: #2196F3;
         }
 
         .delete-button:hover {
-            background-color: #1976D2; /* Azul más oscuro al pasar el mouse */
+            background-color: #1976D2;
         }
 
         a {
@@ -100,21 +99,32 @@ $userRole = "admin";
             text-decoration: underline;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
 
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+        .soporte-item {
+            background-color: #ffe0b2;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        th {
-            background-color: #fb8c00;
-            color: white;
+        .soporte-item h3 {
+            color: #d84315;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .soporte-item p {
+            margin: 5px 0;
+            text-align: center;
         }
 
         @media (max-width: 600px) {
@@ -163,47 +173,33 @@ $userRole = "admin";
                 }
                 echo '</div>';
             } else {
-                echo "<p>Error: Usuario no válido.</p>";
+                echo "<p>Error: Usuario no valido.</p>";
             }
         }
         ?>
     </div>
 
-    <p>Pulsa <a href="logout.php">aquí</a> para cerrar la sesión.</p>
+    <a href="createCliente.php"><button>Registrar nuevo cliente</button></a>
+    <p>Pulsa <a href="logout.php">aqui</a> para cerrar la sesión.</p>
 
     <?php if (!empty($videoclub_datos)): ?>
         <div class="videoclub-info">
-            <h2>Datos del Videoclub</h2>
+            <h2>Soportes disponibles en el Videoclub</h2>
 
-            <h3>soportes libres</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Tipo</th>
-                        <th>Precio</th>
-                        <th>Duración</th>
-                        <th>Alquilado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($videoclub_datos as $soporte): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($soporte['titulo']); ?></td>
-                            <td><?php echo htmlspecialchars($soporte['tipo']); ?></td>
-                            <td><?php echo htmlspecialchars($soporte['precio']); ?>$</td>
-                            <td><?php echo isset($soporte['duracion']) ? htmlspecialchars($soporte['duracion']) : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($soporte['alquilado'] ? 'Sí' : 'No'); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="bento-grid">
+                <?php foreach ($videoclub_datos as $soporte): ?>
+                    <div class="soporte-item">
+                        <h3><?php echo htmlspecialchars($soporte['titulo']); ?></h3>
+                        <p>Tipo: <?php echo htmlspecialchars($soporte['tipo']); ?></p>
+                        <p>Precio: <?php echo htmlspecialchars($soporte['precio']); ?>$</p>
+                        <p>Duracion: <?php echo isset($soporte['duracion']) ? htmlspecialchars($soporte['duracion']) : 'N/A'; ?></p>
+                        <p>Alquilado: <?php echo htmlspecialchars($soporte['alquilado'] ? 'Sí' : 'No'); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     <?php else: ?>
         <p>No hay soportes libres</p>
     <?php endif; ?>
-
-    <h1>Crear Cliente</h1>
-    <a href="createCliente.php"><button>Crear Cliente</button></a>
 </body>
 </html>
