@@ -30,30 +30,42 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #fff3e0; /* Fondo suave naranja */
             color: #333;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            color: #4caf50; /* Verde kiwi */
+            color: #ff5722; /* Naranja brillante */
+            margin-bottom: 20px;
         }
 
-        h2 {
-            color: #388e3c; /* Verde un poco más oscuro */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .client-info {
-            background-color: #ffffff;
-            padding: 15px;
-            margin: 10px 0;
+            background-color: #ffe0b2; /* Fondo naranja claro */
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .client-info:hover {
+            transform: scale(1.02); /* Aumenta el tamaño al pasar el mouse */
         }
 
         button {
-            background-color: #4caf50; /* Verde kiwi */
+            background-color: #ff5722; /* Naranja brillante */
             color: white;
             border: none;
             border-radius: 5px;
@@ -63,11 +75,11 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
         }
 
         button:hover {
-            background-color: #45a049; /* Verde más oscuro al pasar el mouse */
+            background-color: #e64a19; /* Naranja más oscuro al pasar el mouse */
         }
 
         a {
-            color: #4caf50; /* Verde kiwi */
+            color: #ff5722; /* Naranja brillante */
             text-decoration: none;
             font-weight: bold;
         }
@@ -78,10 +90,14 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
 
         .videoclub-info {
             margin-top: 20px;
-            background-color: #ffffff;
+            background-color: #fff3e0; /* Fondo suave naranja */
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin: 0;
         }
     </style>
 </head>
@@ -89,53 +105,34 @@ $videoclub_datos = isset($_SESSION['soportes']) ? $_SESSION['soportes'] : [];
 
     <h1>Bienvenido a tu página, <?php echo htmlspecialchars($usuarios[0]->getNombre()); ?></h1>
 
-    <?php
-    foreach ($usuarios as $user) {
-        echo '<div class="client-info">';
-        echo "<h2>Información del Cliente</h2>";
-        echo "<p>Nombre: " . htmlspecialchars($user->getNombre()) . "</p>";
-        echo "<p>Número: " . htmlspecialchars($user->getNumero()) . "</p>";
-        echo "<p>Máximo Alquiler Concurrente: " . htmlspecialchars($user->getMaxAlquilerConcurrente()) . "</p>";
-        echo '<a href="formUpdateCliente.php?id=' . urlencode($user->getNumero()) . '"><button>Editar Mis Datos</button></a>';
-        
-        // Listar alquileres usando el método getAlquileres()
-        echo "<h3>Alquileres:</h3>";
-        $alquileres = $user->getAlquileres(); // Call the new method to get the rentals
-        if (!empty($alquileres)) {
-            echo "<ul>";
-            foreach ($alquileres as $alquiler) {
-                echo "<li>" . htmlspecialchars($alquiler['titulo']) . " (Alquilado: " . ($alquiler['alquilado'] ? 'Sí' : 'No') . ")</li>";
+    <div class="container">
+        <?php
+        foreach ($usuarios as $user) {
+            echo '<div class="client-info">';
+            echo "<h2>Información del Cliente</h2>";
+            echo "<p>Nombre: " . htmlspecialchars($user->getNombre()) . "</p>";
+            echo "<p>Número: " . htmlspecialchars($user->getNumero()) . "</p>";
+            echo "<p>Máximo Alquiler Concurrente: " . htmlspecialchars($user->getMaxAlquilerConcurrente()) . "</p>";
+            echo '<a href="formUpdateCliente.php?id=' . urlencode($user->getNumero()) . '"><button>Editar Mis Datos</button></a>';
+            
+            echo "<h3>Alquileres:</h3>";
+            $alquileres = $user->getAlquileres(); 
+            if (!empty($alquileres)) {
+                echo "<ul>";
+                foreach ($alquileres as $alquiler) {
+                    echo "<li>" . htmlspecialchars($alquiler['titulo']) . " (Alquilado: " . ($alquiler['alquilado'] ? 'Sí' : 'No') . ")</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p>No hay alquileres.</p>";
             }
-            echo "</ul>";
-        } else {
-            echo "<p>No hay alquileres.</p>";
-        }
 
-        echo '</div>';
-    }
-    ?>
+            echo '</div>';
+        }
+        ?>
+    </div>
 
     <p>Pulsa <a href="logout.php">aquí</a> para cerrar la sesión.</p>
-
-    <?php if (!empty($videoclub_datos)): ?>
-        <div class="videoclub-info">
-            <h2>Datos del Videoclub</h2>
-
-            <h3>Soportes</h3>
-            <ul>
-                <?php foreach ($videoclub_datos['soportes'] as $soporte): ?>
-                    <li><?php echo htmlspecialchars($soporte['titulo']) . " (" . htmlspecialchars($soporte['tipo']) . ") - Precio: " . htmlspecialchars($soporte['precio']); ?></li>
-                <?php endforeach; ?>
-            </ul>
-
-            <h3>Socios</h3>
-            <ul>
-                <?php foreach ($videoclub_datos['socios'] as $socio): ?>
-                    <li><?php echo htmlspecialchars($socio['nombre']) . " (ID: " . htmlspecialchars($socio['id']) . ")"; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
 
 </body>
 </html>

@@ -5,65 +5,66 @@ use Dwes\ProyectoVideoclub\app\CintaVideo;
 
 session_start();
 
-// Inicializa los clientes solo si no existen en la sesión
 if (!isset($_SESSION['clientes'])) {
-    // Inicializa los soportes
-// Suponiendo que has creado la clase CintaVideo correctamente
-$soportes = [
-    new CintaVideo('Star Wars', 1, 10, 120), // La duración se puede ajustar
-    new CintaVideo('Matrix', 2, 15, 136),
-    new CintaVideo('FIFA 2022', 3, 60, 90),
-];
-
-
-    $clientes = [
-        new Cliente('Juan Perez', 1, 'juan', '1234', 3),
-        new Cliente('Maria Lopez', 2, 'maria', '5678', 2),
-        new Cliente('usuario', 3, "usuario", "usuario", 2),
-        new Cliente('user', 4, "user", "user", 2),
+    $disponibles = [
+        new CintaVideo('Star Wars', 1, 10, 120),
+        new CintaVideo('Matrix', 2, 15, 136),
+        new CintaVideo('FIFA 2022', 3, 60, 90),
     ];
 
-      $clientes[0]->alquilar($soportes[0]);  
-      $clientes[0]->alquilar($soportes[1]);  
-      $clientes[1]->alquilar($soportes[2]);  
+    $listaClientes = [
+        new Cliente('Carlos Martínez', 1, 'carlos', 'carlos', 4),
+        new Cliente('Sofía Rodríguez', 2, 'sofia', 'sofia', 5),
+        new Cliente('Andrés Gómez', 3, 'andres', 'andres', 3),
+        new Cliente('Lucía Fernández', 4, 'lucia', 'lucia', 1),
+    ];
+    
+    $listaClientes[0]->alquilar($disponibles[0]);  
+    $listaClientes[0]->alquilar($disponibles[1]);  
+    $listaClientes[1]->alquilar($disponibles[2]);  
 
-    // Convierte los objetos Cliente a JSON y los almacena en la sesión
     $_SESSION['clientes'] = array_map(function($cliente) {
         return $cliente->toJSON();
-    }, $clientes);
+    }, $listaClientes);
 }
 
 if (isset($_POST['enviar'])) {
-    $usuario = $_POST['inputUsuario'];
-    $password = $_POST['inputPassword'];
+    $usuarioEntrante = $_POST['inputUsuario'];
+    $claveEntrante = $_POST['inputPassword'];
     
-    // Recupera los clientes de la sesión y los convierte de JSON a objetos Cliente
-    $clientes = array_map(function($jsonCliente) {
+    $clientesDeserializados = array_map(function($jsonCliente) {
         return Cliente::fromJSON($jsonCliente);
     }, $_SESSION['clientes']);
     
-    if ($usuario === "admin" && $password === "admin") {
-        $_SESSION['usuario'] = $clientes; 
+    if ($usuarioEntrante === "admin" && $claveEntrante === "admin") {
+        $_SESSION['usuario'] = $clientesDeserializados; 
+        $_SESSION['soportes'] = [
+            ['titulo' => 'Star Wars', 'tipo' => 'Cinta Video', 'precio' => 10, 'duracion' => 120, 'alquilado' => false],
+            ['titulo' => 'Matrix', 'tipo' => 'DVD', 'precio' => 15, 'idiomas' => 'Inglés, Español', 'pantalla' => '16:9', 'alquilado' => false],
+            ['titulo' => 'FIFA 2022', 'tipo' => 'Juego', 'precio' => 60, 'consola' => 'PS5', 'minJugadores' => 1, 'maxJugadores' => 4, 'alquilado' => false]
+        ];
         header("Location: mainAdmin.php");
         exit();
     } else {
-        foreach ($clientes as $cliente) {
-            if ($cliente->getUser() === $usuario && $cliente->getPassword() === $password) {
-                $soportes = [
-                    new CintaVideo('Star Wars', 1, 10, 120), // La duración se puede ajustar
+        foreach ($clientesDeserializados as $cliente) {
+            if ($cliente->getUser() === $usuarioEntrante && $cliente->getPassword() === $claveEntrante) {
+                $disponiblesCliente = [
+                    new CintaVideo('Star Wars', 1, 10, 120),
                     new CintaVideo('Matrix', 2, 15, 136),
                     new CintaVideo('FIFA 2022', 3, 60, 90),
                 ];
-                $cliente->alquilar($soportes[0]); 
-                $cliente->alquilar($soportes[1]); 
-                // Almacena el cliente en la sesión para la página del cliente
-                $_SESSION['usuario'] = $cliente->toJSON(); // Guardar el cliente como JSON
+                
+                $_SESSION['usuario'] = $cliente->toJSON();
+                $_SESSION['soportes'] = [
+                    ['titulo' => 'Star Wars', 'tipo' => 'Cinta Video', 'precio' => 10, 'duracion' => 120, 'alquilado' => false],
+                    ['titulo' => 'Matrix', 'tipo' => 'DVD', 'precio' => 15, 'idiomas' => 'Inglés, Español', 'pantalla' => '16:9', 'alquilado' => false],
+                    ['titulo' => 'FIFA 2022', 'tipo' => 'Juego', 'precio' => 60, 'consola' => 'PS5', 'minJugadores' => 1, 'maxJugadores' => 4, 'alquilado' => false]
+                ];
                 header("Location: mainCliente.php");
                 exit();
             }
         }
 
-        // Mensaje de error si el login falla
         $_SESSION['error'] = "Usuario o contraseña no válidos!";
         header("Location: index.php");
         exit();
